@@ -9,11 +9,10 @@ import { ImageService, ImageObject} from './imageService';
     <p [routerLink]="['']" (click)="delete()">delete</p>
     <p>original width: {{image?.htmlImage?.width}} </p>
     <p>original height: {{image?.htmlImage?.height}} </p>
-    <input type="range" #widthSlider
+    <input type="range" #widthSlider ngModel
       [min]="minWidth"
       [max]="image?.htmlImage?.width || initialWidth * 2"
-      [value]="initialWidth"
-      (change)="return;">
+      [value]="initialWidth">
       <br>
     <img [width]="widthSlider?.value" [src]="image?.htmlImage?.src">
   `
