@@ -1,7 +1,7 @@
 import './polyfills';
 import '../test/jasmine-setup';
 
-import { enableProdMode } from '@angular/core';
+import { PlatformRef } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { getTestBed } from '@angular/core/testing';
 import {
@@ -11,12 +11,26 @@ import {
 
 import { AppModule } from './app/app.module';
 
-const TEST_MODE = false;
+/* Set to true for testing mode */
+const TEST_MODE = true;
+
+
+
 
 if (TEST_MODE) {
   bootstrapJasmine()
 } else {
-  platformBrowserDynamic().bootstrapModule(AppModule).then(ref => {
+  bootstrapAngular();
+}
+
+let platformRef: PlatformRef;
+
+function bootstrapAngular() {
+    if(platformRef) {
+      platformRef.destroy();
+    } 
+    platformRef = platformBrowserDynamic();
+    platformRef.bootstrapModule(AppModule).then(ref => {
     // Ensure Angular destroys itself on hot reloads.
     if (window['ngRef']) {
       window['ngRef'].destroy();
@@ -37,9 +51,15 @@ function bootstrapJasmine() {
   window.onload(new Event('anything'));
   window.jasmineRef = jasmine.getEnv();
 
-  // initialize the Angular testing environment.
-  getTestBed().initTestEnvironment(
-    BrowserDynamicTestingModule,
-    platformBrowserDynamicTesting()
-  );
+  if(platformRef) {
+    platformRef.destroy();
+  } 
+  platformRef = platformBrowserDynamic();
+  if (platformRef) {
+    // initialize the Angular testing environment.
+    getTestBed().initTestEnvironment(
+      BrowserDynamicTestingModule,
+      platformBrowserDynamicTesting()
+    );
+  }
 }
