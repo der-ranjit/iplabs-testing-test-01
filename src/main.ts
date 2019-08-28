@@ -1,5 +1,5 @@
-import './polyfills';
 import '../test/jasmine-setup';
+import './polyfills';
 
 import { PlatformRef } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -12,7 +12,7 @@ import {
 import { AppModule } from './app/app.module';
 
 /* Set to true for testing mode */
-const TEST_MODE = true;
+const TEST_MODE = false;
 
 
 
@@ -24,8 +24,12 @@ if (TEST_MODE) {
 }
 
 let platformRef: PlatformRef;
+let testingRef: PlatformRef;
 
 function bootstrapAngular() {
+    if(testingRef) {
+      testingRef.destroy();
+    } 
     if(platformRef) {
       platformRef.destroy();
     } 
@@ -54,12 +58,10 @@ function bootstrapJasmine() {
   if(platformRef) {
     platformRef.destroy();
   } 
-  platformRef = platformBrowserDynamic();
-  if (platformRef) {
-    // initialize the Angular testing environment.
-    getTestBed().initTestEnvironment(
-      BrowserDynamicTestingModule,
-      platformBrowserDynamicTesting()
-    );
-  }
+  testingRef = platformBrowserDynamicTesting();
+  // initialize the Angular testing environment.
+  getTestBed().initTestEnvironment(
+    BrowserDynamicTestingModule,
+    testingRef
+  );
 }
