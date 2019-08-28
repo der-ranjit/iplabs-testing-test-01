@@ -1,5 +1,13 @@
-# angular-1a4ft2
+# Simple Picture Viewer - Testing
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-1a4ft2)
+## Important notes
+Please fork this project, otherwise your changes will not be saved.  
+When you have finished the task, send us the link of the forked project.
 
-test1
+## Your Task
+Your task is to get an understanding of this app and write tests for it.
+What to test is completely up to you and what you think should be tested.
+
+### Hints
+* To run the normal app, and not the testing environment, set `TEST_MODE` to `false` in the file `src/main.ts` and then save and reload.
+
