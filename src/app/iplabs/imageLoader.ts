@@ -7,23 +7,23 @@ export class ImageLoader {
     private httpClient: HttpClient
   ) {}
 
-  public async loadImage(url: string): Promise<string | ArrayBuffer> {
+  public async loadImageAsDataURL(url: string): Promise<string> {
     let result: Blob;
     try {
       result = await this.httpClient.get(url, {responseType: "blob"}).toPromise();
-      return await this.createImageFromBlob(result);
+      return await this.readBlobAsDataURL(result);
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  private createImageFromBlob(blob: Blob): Promise<string | ArrayBuffer> {
+  private readBlobAsDataURL(blob: Blob): Promise<string> {
     return new Promise((resolve, reject) => {
       let reader = new FileReader();
-      let imageData: string | ArrayBuffer;
+      let imageData: string;
 
       reader.addEventListener("load", () => {
-        imageData = reader.result;
+        imageData = reader.result as string;
         resolve(imageData);
       }, false);
 
