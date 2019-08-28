@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ImageService } from './imageService';
 
 @Component({
-  selector: 'start-component',
+  selector: 'image-overview-component',
   template: `
     <img *ngFor="let image of imageService?.getImages()" 
       [routerLink]="['/image/' + image?.id]"
@@ -13,7 +13,7 @@ import { ImageService } from './imageService';
   styles: [`
   `]
 })
-export class StartComponent  {
+export class ImageOverviewComponent  {
   public imageSrc: string | ArrayBuffer;
   public thumbnailSize = 200;
 

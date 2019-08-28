@@ -52,7 +52,7 @@ export class ImageService {
   private createImageObject(imageUrl: string, id: number): Promise<ImageObject> {
     return new Promise(async (resolve, reject) => {
       try {
-        const imageSrc = await this.imageLoader.loadImage(imageUrl) as string;
+        const imageSrc = await this.imageLoader.loadImageAsDataURL(imageUrl) as string;
         const htmlImage = new Image();
         htmlImage.onload = () => {
           resolve({
