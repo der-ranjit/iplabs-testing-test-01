@@ -30,7 +30,6 @@ describe('ImageService', () => {
 
   it('imageService should be created', () => {
     expect(imageService).toBeTruthy();
-
   });
 
 });
