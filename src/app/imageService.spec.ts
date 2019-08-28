@@ -11,7 +11,7 @@ import { ImageLoader } from './iplabs/imageLoader';
 import { ImageService } from './imageService';
 
 describe('ImageService', () => {  
-  let service: ImageService;
+  let imageService: ImageService;
 
   beforeEach(async (() => {
       TestBed.configureTestingModule({
@@ -25,11 +25,11 @@ describe('ImageService', () => {
   }));
 
   beforeEach(() => {
-      service = TestBed.get(ImageService);
+      imageService = TestBed.get(ImageService);
   })
 
-  it('first test schould be true', () => {
-    expect(service.imagesLoaded$.getValue()).toBeFalsy();
+  it('imageService should be created', () => {
+    expect(imageService).toBeTruthy();
 
   });
 
