@@ -12,7 +12,7 @@ import {
 import { AppModule } from './app/app.module';
 
 /* Set to false for app mode */
-const TEST_MODE = false;
+const TEST_MODE = true;
 
 
 
