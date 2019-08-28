@@ -11,7 +11,7 @@ import {
 
 import { AppModule } from './app/app.module';
 
-/* Set to true for testing mode */
+/* Set to true for testing mode - needs a browser reload */
 const TEST_MODE = false;
 
 
@@ -23,23 +23,13 @@ if (TEST_MODE) {
   bootstrapAngular();
 }
 
-let platformRef: PlatformRef;
-let testingRef: PlatformRef;
-
 function bootstrapAngular() {
-    if(testingRef) {
-      testingRef.destroy();
-    } 
-    if(platformRef) {
-      platformRef.destroy();
-    } 
-    platformRef = platformBrowserDynamic();
-    platformRef.bootstrapModule(AppModule).then(ref => {
-    // Ensure Angular destroys itself on hot reloads.
-    if (window['ngRef']) {
-      window['ngRef'].destroy();
-    }
-    window['ngRef'] = ref;
+    platformBrowserDynamic().bootstrapModule(AppModule).then(ref => {
+      // Ensure Angular destroys itself on hot reloads.
+      if (window['ngRef']) {
+        window['ngRef'].destroy();
+      }
+      window['ngRef'] = ref;
 
     // Otherwise, log the boot error
   }).catch(err => console.error(err));
@@ -48,20 +38,16 @@ function bootstrapAngular() {
 function bootstrapJasmine() {
   if (window.jasmineRef) {
     location.reload();
-
     return;
   }
 
   window.onload(new Event('anything'));
   window.jasmineRef = jasmine.getEnv();
 
-  if(platformRef) {
-    platformRef.destroy();
-  } 
-  testingRef = platformBrowserDynamicTesting();
   // initialize the Angular testing environment.
   getTestBed().initTestEnvironment(
     BrowserDynamicTestingModule,
-    testingRef
+    platformBrowserDynamicTesting()
   );
+
 }
