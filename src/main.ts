@@ -11,8 +11,8 @@ import {
 
 import { AppModule } from './app/app.module';
 
-/* Set to true for testing mode - needs a browser reload */
-const TEST_MODE = false;
+/* Set to false for app mode - needs a browser reload */
+const TEST_MODE = true;
 
 
 
